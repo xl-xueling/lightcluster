@@ -165,9 +165,9 @@ start_all(){
 	fi
 	log_info "Waiting to start LightHouse ..."
 	sleep 20;
-	startLightHouseICE;
-	startLightHouseWeb;
-  startLightHouseTasks;
+	#startLightHouseICE;
+	#startLightHouseWeb;
+  #startLightHouseTasks;
   track;
 }
 
