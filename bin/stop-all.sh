@@ -7,6 +7,8 @@
 
 CUR_DIR=$(cd "$(dirname "$0")";pwd)
 EYCLUSTER_HOME=$(dirname "$CUR_DIR")
+DEPLOY_HOME=$(dirname $(dirname "$CUR_DIR"))
+LDP_DATA_DIR=${DEPLOY_HOME}/data
 ROOT_HOME=$(dirname "$EYCLUSTER_HOME")
 CUR_USER=${USER}
 LOCKFILE=/tmp/lighthouse_stop.lock
