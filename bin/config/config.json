@@ -48,6 +48,9 @@
   "spark": {
     "nodes_size": 3
   },
+  "flink": {
+    "nodes_size": 3
+  },
   "kafka": {
     "nodes_size": 3,
     "topic_name": "lighthouse-topic-v1",

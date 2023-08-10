@@ -256,6 +256,16 @@ function loadExtendHBaseAttrs() {
 	ATTRS_MAP['ldp_hbase_regionservers']=${regionservers}
 }
 
+function loadExtendFlinkAttrs() {
+        local IPArray=($(getServiceIPS 'flink'))
+        local flink_workers=''
+        for ip in ${IPArray[@]:1}; do
+                flink_workers+="${ip}\n"
+        done
+        ATTRS_MAP['ldp_flink_master']=${IPArray[0]}
+        ATTRS_MAP['ldp_flink_workers']=${flink_workers}
+}
+
 function loadExtendSparkAttrs() {
 	local IPArray=($(getServiceIPS 'spark'))
 	local workers=''
@@ -272,11 +282,12 @@ function loadExtendMysqlAttrs() {
 }
 
 function loadExtendAttrs() {
-	loadExtendZooAttrs
-	loadExtendHadoopAttrs
-	loadExtendHBaseAttrs
-	loadExtendSparkAttrs
-	loadExtendMysqlAttrs
+	loadExtendZooAttrs;
+	loadExtendHadoopAttrs;
+	loadExtendHBaseAttrs;
+	loadExtendFlinkAttrs;
+	loadExtendSparkAttrs;
+	loadExtendMysqlAttrs;
 	loadExtendKafkaAttrs;
 	loadExtendRedisAttrs;
 	loadExtendLightHouseAttrs
