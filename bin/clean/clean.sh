@@ -10,19 +10,20 @@ function killAll(){
 function clearLogFiles(){
 	for ip in "${NODES[@]}"
     		do
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/dependency/hadoop/logs/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/dependency/hbase/logs/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/dependency/spark/logs/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/dependency/kafka/logs/server.log*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/dependency/kafka/logs/state-change.log*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-tasks/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-tasks/.*.sw*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-ice/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-ice/.*.sw*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-web/*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/logs/lighthouse-web/.*.sw*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${EYCLUSTER_HOME}/bin/log/track_pid.*"
-          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf /tmp/lighthouse_gc*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/hadoop/logs/*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/hbase/logs/*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/spark/logs/*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/flink/log/*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/kafka/logs/server.log*"
+          expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/kafka/logs/state-change.log*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-tasks/*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-tasks/.*.sw*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-ice/*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-ice/.*.sw*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-web/*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/logs/lighthouse-web/.*.sw*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf ${DEPLOY_HOME}/bin/log/track_pid.*"
+          #expect ${CUR_DIR}/common/exec.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "rm -rf /tmp/lighthouse_gc*"
 		    done
 }
 
