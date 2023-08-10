@@ -40,6 +40,7 @@ function installICE() {
 install(){
 	baseInstall;
 	dependencyInstall;
+	pluginsInstall;
 	reloadClusterConfig;
 	installICE;
 	authorization;

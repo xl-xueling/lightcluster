@@ -121,5 +121,24 @@ function dependencyInstall() {
   done
 }
 
+function pluginsInstall() {
+    source ~/.bashrc;
+#    cd ${LDP_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
+#    cd ${LDP_HOME}/plugins/redis-roaring && ./configure.sh
+#    for ip in "${NODES[@]:1}"
+#                do
+#			remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LDP_HOME}/plugins ${ip} ${NODES_MAP[$ip]} ${LDP_HOME}
+#		done
+  for service in "flink" "mysql" "hadoop";do
+    if [ "$service" == "flink" ];then
+         		local IPArray=($(getServiceIPS ${service}))
+		        for ip in ${IPArray[@]}; do
+			        remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${EYCLUSTER_HOME}/plugins/flink/*.jar ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/flink/lib/
+		        done
+    fi
+  done
+
+}
+
 
 
