@@ -203,6 +203,12 @@ rest.address:  ${ldp_flink_master}
 #
 rest.bind-address:  0.0.0.0
 
+yarn.application-attempts: 3
+high-availability: zookeeper
+high-availability.storageDir: hdfs://${ldp_hadoop_namenode_ip}:9000/flink/yarn/ha
+high-availability.zookeeper.quorum: ${ldp_zookeeper_ips_port}
+high-availability.zookeeper.path.root: /flink-yarn
+
 # Flag to specify whether job submission is enabled from the web-based
 # runtime monitor. Uncomment to disable.
 

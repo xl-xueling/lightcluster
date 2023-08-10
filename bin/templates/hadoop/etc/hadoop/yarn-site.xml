@@ -36,6 +36,13 @@
     <name>yarn.acl.enable</name>
     <value>0</value>
 </property>
+    <property>
+        <name>yarn.resourcemanager.am.max-attempts</name>
+        <value>3</value>
+        <description>
+            The maximum number of application master execution attempts.
+        </description>
+    </property>
 <property>
     <name>yarn.admin.acl</name>
     <value>lighthouse</value>
