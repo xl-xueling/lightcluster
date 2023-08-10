@@ -3,11 +3,11 @@
 set user [lindex $argv 0]
 set ip [lindex $argv 1]
 set passwd [lindex $argv 2]
-set DEPLOY_HOME [lindex $argv 3]
+set deploy_home [lindex $argv 3]
 set topic_name [lindex $argv 4]
 set zoos [lindex $argv 5]
 
-set kafka_home ${DEPLOY_HOME}/kafka
+set kafka_home ${deploy_home}/kafka
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
         set prompt "*${user}@*#"
