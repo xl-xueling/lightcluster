@@ -121,6 +121,7 @@ function dependencyInstall() {
   done
 }
 
+
 function pluginsInstall() {
     source ~/.bashrc;
 #    cd ${LDP_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
@@ -137,7 +138,6 @@ function pluginsInstall() {
 		        done
     fi
   done
-
 }
 
 
