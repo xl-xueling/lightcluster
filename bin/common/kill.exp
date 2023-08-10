@@ -41,7 +41,7 @@ if { $service == "all" } {
 	send "jps -l|grep 'org.apache.spark.deploy.master.Master'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
 	send "jps -l|grep 'org.apache.spark.deploy.worker.Worker'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
 } elseif { $service == "flink" } {
-  	send "jps -l|grep 'org.apache.spark.deploy.master.Master'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
+  	send "jps -l|grep 'org.apache.flink.runtime.entrypoint.StandaloneSessionClusterEntrypoint'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
   	send "jps -l|grep 'org.apache.flink.runtime.taskexecutor.TaskManagerRunner'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
 } elseif { $service == "kafka"} {
 	send "jps -l|grep 'kafka.Kafka'|grep -v Jps|awk '{print \$1}'|xargs --no-run-if-empty kill -9\r"
