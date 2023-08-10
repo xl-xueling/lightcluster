@@ -3,9 +3,9 @@
 set user [lindex $argv 0]
 set ip [lindex $argv 1]
 set passwd [lindex $argv 2]
-set ldp_home [lindex $argv 3]
+set deploy_home [lindex $argv 3]
 set node [lindex $argv 4]
-set zookeeper_home ${ldp_home}/dependency/zookeeper
+set zookeeper_home ${deploy_home}/zookeeper
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
         set prompt "*${user}@*#"

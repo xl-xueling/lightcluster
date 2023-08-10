@@ -5,8 +5,8 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-source ${LDP_HOME}/bin/common/common.sh
-source ${LDP_HOME}/bin/common/const.sh
+source ${EYCLUSTER_HOME}/bin/common/common.sh
+source ${EYCLUSTER_HOME}/bin/common/const.sh
 
 
 function getServiceIPS(){
@@ -63,9 +63,9 @@ function delHDFSDir(){
 		log_error "hdfs dir cannot be empty!"
 		exit -1;
 	fi
-  ${LDP_HOME}/dependency/hadoop/bin/hadoop fs -test -e ${dir}
+  ${EYCLUSTER_HOME}/dependency/hadoop/bin/hadoop fs -test -e ${dir}
   if [ $? -eq 0 ] ;then
-          ${LDP_HOME}/dependency/hadoop/bin/hadoop fs -rm -r ${dir}
+          ${EYCLUSTER_HOME}/dependency/hadoop/bin/hadoop fs -rm -r ${dir}
   fi
 }
 
@@ -77,7 +77,7 @@ function redisClusterFix(){
                         for ((a=1;a<=${_REDIS_NUM_PIDS_PER_NODE};a++))
                                 do
                                         local port=$[7100+${a}]
-                                        remoteExecute ${LDP_HOME}/bin/tools/redis_fix.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${port} ${clusterPwd}
+                                        remoteExecute ${EYCLUSTER_HOME}/bin/tools/redis_fix.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${port} ${clusterPwd}
                                 done
                 done
 }

@@ -3,12 +3,12 @@
 set user [lindex $argv 0]
 set ip [lindex $argv 1]
 set passwd [lindex $argv 2]
-set ldp_home [lindex $argv 3]
+set deploy_home [lindex $argv 3]
 set ldp_data_dir [lindex $argv 4]
 set root_pwd [lindex $argv 5]
 set operate_user [lindex $argv 6]
 set operate_user_passwd [lindex $argv 7]
-set mysql_home ${ldp_home}/dependency/mysql
+set mysql_home ${deploy_home}/mysql
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
         set prompt "*${user}@*#"
@@ -71,7 +71,7 @@ expect {
 expect "${prompt}"
 send "${mysql_home}/bin/mysql -u root -h localhost -p'root'\r"
 expect "*>"
-send "source ${ldp_home}/conf/ldp_db.sql;\r"
+send "source ${EYCLUSTER_HOME}/conf/ldp_db.sql;\r"
 send "exit\r"
 expect "${prompt}"
 send "exit\r"

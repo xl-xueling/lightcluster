@@ -6,9 +6,10 @@
 #-----------------------------------------
 
 CUR_DIR=$(cd "$(dirname "$0")";pwd)
-LDP_HOME=$(dirname "$CUR_DIR")
-LDP_DATA_DIR=${LDP_HOME}/data
-ROOT_HOME=$(dirname "$LDP_HOME")
+EYCLUSTER_HOME=$(dirname "$CUR_DIR")
+DEPLOY_HOME=$(dirname $(dirname "$CUR_DIR"))
+LDP_DATA_DIR=${DEPLOY_HOME}/data
+ROOT_HOME=$(dirname "$DEPLOY_HOME")
 CUR_USER=${USER}
 DEPLOY_FLAG="true"
 CHECK_OS_VERSION="true"
@@ -34,8 +35,8 @@ easy_deploy(){
   	deploy;
 	source ~/.bashrc;
 	checkInstall;
-	stop_all;
-	start_all;
+	#stop_all;
+	#start_all;
 	rm -f ${LOCKFILE}
 	echo "XL-LightHouse installed successfully!"
 }
@@ -47,7 +48,7 @@ main(){
 		exit -1;
 	fi
 	local args=$@
-	if [ -d "${LDP_HOME}/dependency" ];then
+	if [ -d "${EYCLUSTER_HOME}/dependency" ];then
 		echo "=Important=:This operation will delete all data of the cluster,Please execute it carefully !!!"
 		if [[ ! "${args[@]}" =~ "--force" ]];then
 			echo "Program has been deployed, please delete it and execute again, or execute \"deploy.sh --force\" to enforce it!"

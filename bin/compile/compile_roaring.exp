@@ -3,7 +3,7 @@
 set user [lindex $argv 0]
 set dest_ip [lindex $argv 1]
 set dest_passwd [lindex $argv 2]
-set ldp_home [lindex $argv 3]
+set EYCLUSTER_HOME [lindex $argv 3]
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
         set prompt "*${user}@*#"
@@ -16,7 +16,7 @@ expect {
         -nocase "password" {send "$dest_passwd\n"}
 }
 expect "${prompt}"
-send "cd ${ldp_home}/plugins/\r"
+send "cd ${EYCLUSTER_HOME}/plugins/\r"
 expect "${prompt}"
 send "tar -zxvf redis-roaring.tar.gz \r"
 expect "${prompt}"

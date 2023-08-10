@@ -5,7 +5,7 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-source_dir="${LDP_HOME}/temp/source"
+source_dir="${EYCLUSTER_HOME}/temp/source"
 
 function setComponentsEnv(){
         local service=${1}
@@ -45,9 +45,9 @@ function syncComponents() {
 
 
 function downloads() {
-	local temp_dir=${LDP_HOME}/temp
+	local temp_dir=${EYCLUSTER_HOME}/temp
 	for service in "${SERVICES[@]}"; do
-			local archive_dir=${LDP_HOME}/package/${service}
+			local archive_dir=${EYCLUSTER_HOME}/package/${service}
 			local source_dir=${temp_dir}/source/${service}
 			mkdir -p ${archive_dir}  ${source_dir}
 			local archives=$(find ${archive_dir} -maxdepth 1 -mindepth 1 -type f | grep ${service})
@@ -98,7 +98,7 @@ function dependencyInstall() {
     fi
 		local IPArray=($(getServiceIPS ${service}))
 		for ip in ${IPArray[@]}; do
-			syncComponents ${service} ${ip} ${source_dir} ${dirname} "${LDP_HOME}/dependency"
+			syncComponents ${service} ${ip} ${source_dir} ${dirname} "${DEPLOY_HOME}"
 		done
 		log_info "Program progress,dependency[$service] install complete!"
 	done
@@ -114,7 +114,7 @@ function dependencyInstall() {
             local IPArray=($(getServiceIPS ${service}))
             for ip in ${webIPArray[@]}; do
                     if [[ ! "${IPArray[@]}" =~ ${ip} ]];then
-                            syncComponents ${service} ${ip} ${source_dir} ${dirname} "${LDP_HOME}/proxy"
+                            syncComponents ${service} ${ip} ${source_dir} ${dirname} "${DEPLOY_HOME}/proxy"
                     fi
             done
     fi
@@ -123,11 +123,11 @@ function dependencyInstall() {
 
 function pluginsInstall() {
     source ~/.bashrc;
-    cd ${LDP_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
-    cd ${LDP_HOME}/plugins/redis-roaring && ./configure.sh
+    cd ${EYCLUSTER_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
+    cd ${EYCLUSTER_HOME}/plugins/redis-roaring && ./configure.sh
     for ip in "${NODES[@]:1}"
                 do
-			remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LDP_HOME}/plugins ${ip} ${NODES_MAP[$ip]} ${LDP_HOME}
+			remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${DEPLOY_HOME}/plugins ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}
 		done
 
 }

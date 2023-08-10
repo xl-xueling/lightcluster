@@ -14,7 +14,7 @@ deployHadoop(){
 			remoteExecute ${CUR_DIR}/common/delete.exp "${DEPLOY_USER}" "${ip}" "${DEPLOY_PASSWD}" "${LDP_DATA_DIR}/hadoop/tmp"
 		done
 	local namenode=${ATTRS_MAP['ldp_hadoop_namenode_ip']}
-	remoteExecute ${CUR_DIR}/deploy/deploy_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${LDP_HOME}
+	remoteExecute ${CUR_DIR}/deploy/deploy_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
 	log_info "Program progress,deploy hadoop complete!"
 }
 
@@ -23,10 +23,10 @@ deployMysql(){
 	local rootPwd=($(getVal 'ldp_mysql_root_passwd'))
 	local operateUser=($(getVal 'ldp_mysql_operate_user'))
 	local operateUserPwd=($(getVal 'ldp_mysql_operate_user_passwd'))
-  local home=${LDP_HOME}/dependency/mysql
+  local home=${DEPLOY_HOME}/mysql
   for ip in "${IPArray[@]}"
 		do
-			remoteExecute ${CUR_DIR}/deploy/deploy_mysql.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${LDP_DATA_DIR} ${rootPwd} ${operateUser} ${operateUserPwd}
+			remoteExecute ${CUR_DIR}/deploy/deploy_mysql.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME} ${LDP_DATA_DIR} ${rootPwd} ${operateUser} ${operateUserPwd}
 		done
 	log_info "Program progress,deploy mysql complete!"
 }
@@ -40,13 +40,13 @@ deployRedis(){
 				                  do
 					                  local port=$[7100+${a}]
 					                  nodes=${nodes}" "${ip}:${port}
-					                  remoteExecute ${CUR_DIR}/deploy/deploy_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${LDP_DATA_DIR} ${port}
+					                  remoteExecute ${CUR_DIR}/deploy/deploy_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME} ${LDP_DATA_DIR} ${port}
 				                  done
                 done
 	sleep 5
 	checkRedis;
 	local clusterPwd=($(getVal 'ldp_redis_cluster_passwd'))
-	remoteExecute ${CUR_DIR}/deploy/redis_cluster.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} "${nodes}" ${clusterPwd}
+	remoteExecute ${CUR_DIR}/deploy/redis_cluster.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME} "${nodes}" ${clusterPwd}
 	log_info "Program progress,deploy redis complete!"
 }
 
@@ -56,7 +56,7 @@ function deleteZKPath(){
         local node=${1}
         local IPArray=($(getServiceIPS 'zookeeper'))
         local master=${IPArray[0]}
-        remoteExecute ${CUR_DIR}/deploy/del_zk_node.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${node}
+        remoteExecute ${CUR_DIR}/deploy/del_zk_node.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME} ${node}
 }
 
 
@@ -68,12 +68,12 @@ deployKafka(){
 	local IPArray=($(getServiceIPS 'kafka'))
         for ip in "${IPArray[@]}"
                 do
-			 remoteExecute ${CUR_DIR}/deploy/deploy_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+			 remoteExecute ${CUR_DIR}/deploy/deploy_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
 		done
 	sleep 10
 	local ip=${IPArray[0]}
 	local zoos=($(getVal 'ldp_zookeeper_ips_port'))
-	remoteExecute ${CUR_DIR}/deploy/create_topic.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${topicName} "${zoos}"
+	remoteExecute ${CUR_DIR}/deploy/create_topic.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME} ${topicName} "${zoos}"
 	log_info "Program progress,deploy kafka complete!"
 }
 

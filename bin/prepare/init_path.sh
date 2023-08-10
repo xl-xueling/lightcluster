@@ -7,7 +7,7 @@
 
 function initPath(){
   local user=${1}
-  local LDP_HOME=${2}
+  local EYCLUSTER_HOME=${2}
   local LDP_DATA_DIR=${3}
   mkdir -p ${LDP_DATA_DIR}/hadoop
   mkdir -p ${LDP_DATA_DIR}/hadoop/name
@@ -23,16 +23,16 @@ function initPath(){
   mkdir -p ${LDP_DATA_DIR}/ice/registdata
   mkdir -p ${LDP_DATA_DIR}/lighthouse
   mkdir -p ${LDP_DATA_DIR}/lighthouse/snapshot
-  mkdir -p ${LDP_HOME}/logs
-  mkdir -p ${LDP_HOME}/bin/log
-	mkdir -p ${LDP_HOME}/logs/lighthouse-tasks
-	mkdir -p ${LDP_HOME}/logs/lighthouse-ice
-	mkdir -p ${LDP_HOME}/logs/lighthouse-web
+  mkdir -p ${EYCLUSTER_HOME}/logs
+  mkdir -p ${EYCLUSTER_HOME}/bin/log
+	mkdir -p ${EYCLUSTER_HOME}/logs/lighthouse-tasks
+	mkdir -p ${EYCLUSTER_HOME}/logs/lighthouse-ice
+	mkdir -p ${EYCLUSTER_HOME}/logs/lighthouse-web
 
-  sed -i '/LDP_HOME/d' /home/${user}/.bashrc
-  echo export LDP_HOME=${LDP_HOME} >> /home/${user}/.bashrc
-  sed -i '/LDP_HOME/d' /root/.bashrc
-  echo export LDP_HOME=${LDP_HOME} >> /root/.bashrc
+  sed -i '/EYCLUSTER_HOME/d' /home/${user}/.bashrc
+  echo export EYCLUSTER_HOME=${EYCLUSTER_HOME} >> /home/${user}/.bashrc
+  sed -i '/EYCLUSTER_HOME/d' /root/.bashrc
+  echo export EYCLUSTER_HOME=${EYCLUSTER_HOME} >> /root/.bashrc
 
   sed -i '/LDP_DATA_DIR/d' /home/${user}/.bashrc
   echo export LDP_DATA_DIR=${LDP_DATA_DIR} >> /home/${user}/.bashrc

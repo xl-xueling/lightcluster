@@ -5,9 +5,9 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-LDP_HOME=${1}
+EYCLUSTER_HOME=${1}
 
-source ${LDP_HOME}/bin/common/common.sh
+source ${EYCLUSTER_HOME}/bin/common/common.sh
 
 baseCentOSInstall(){
         sudo rm -f /var/run/yum.pid

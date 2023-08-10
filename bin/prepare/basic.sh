@@ -12,7 +12,7 @@ NODES=()
 SERVICES=()
 
 function loadNodesPWD() {
-  local FILE=${LDP_HOME}/bin/config/nodelist
+  local FILE=${EYCLUSTER_HOME}/bin/config/nodelist
   if [ -f "$FILE" ]; then
     while read row; do
       if [ -n "$row" ]; then
@@ -25,7 +25,7 @@ function loadNodesPWD() {
 }
 
 function loadNodes() {
-  local FILE=${LDP_HOME}/bin/config/nodelist.new
+  local FILE=${EYCLUSTER_HOME}/bin/config/nodelist.new
   if [ -f "$FILE" ]; then
     while read row; do
           if [ -n "$row" ]; then
@@ -48,7 +48,7 @@ function loadDowns() {
 			DOWNS_MAP["${array[0]}"]=${array[1]}
 			SERVICES+=(${array[0]})
 		fi
-	done <${LDP_HOME}/bin/config/sourcelist
+	done <${EYCLUSTER_HOME}/bin/config/sourcelist
 }
 
 declare -A ATTRS_MAP
@@ -66,18 +66,18 @@ function loadBasicAttrs() {
 		IFS=,
 		echo "${NODES[*]}"
 	)
-	ATTRS_MAP["ldp_java_home"]=${LDP_HOME}/dependency/jdk
-	ATTRS_MAP["ldp_scala_home"]=${LDP_HOME}/dependency/scala
-	ATTRS_MAP["ldp_hadoop_home"]=${LDP_HOME}/dependency/hadoop
-	ATTRS_MAP["ldp_hbase_home"]=${LDP_HOME}/dependency/hbase
-	ATTRS_MAP["ldp_kafka_home"]=${LDP_HOME}/dependency/kafka
-	ATTRS_MAP["ldp_zookeeper_home"]=${LDP_HOME}/dependency/zookeeper
-	ATTRS_MAP["ldp_spark_home"]=${LDP_HOME}/dependency/spark
-	ATTRS_MAP["ldp_mysql_home"]=${LDP_HOME}/dependency/mysql
-	ATTRS_MAP["ldp_redis_home"]=${LDP_HOME}/dependency/redis
-	ATTRS_MAP["ldp_plugins_dir"]=${LDP_HOME}/plugins
+	ATTRS_MAP["ldp_java_home"]=${EYCLUSTER_HOME}/dependency/jdk
+	ATTRS_MAP["ldp_scala_home"]=${EYCLUSTER_HOME}/dependency/scala
+	ATTRS_MAP["ldp_hadoop_home"]=${EYCLUSTER_HOME}/dependency/hadoop
+	ATTRS_MAP["ldp_hbase_home"]=${EYCLUSTER_HOME}/dependency/hbase
+	ATTRS_MAP["ldp_kafka_home"]=${EYCLUSTER_HOME}/dependency/kafka
+	ATTRS_MAP["ldp_zookeeper_home"]=${EYCLUSTER_HOME}/dependency/zookeeper
+	ATTRS_MAP["ldp_spark_home"]=${EYCLUSTER_HOME}/dependency/spark
+	ATTRS_MAP["ldp_mysql_home"]=${EYCLUSTER_HOME}/dependency/mysql
+	ATTRS_MAP["ldp_redis_home"]=${EYCLUSTER_HOME}/dependency/redis
+	ATTRS_MAP["ldp_plugins_dir"]=${EYCLUSTER_HOME}/plugins
 	ATTRS_MAP["ldp_data_dir"]=${LDP_DATA_DIR}
-	ATTRS_MAP["ldp_lighthouse_home"]=${LDP_HOME}
+	ATTRS_MAP["ldp_lighthouse_home"]=${EYCLUSTER_HOME}
 }
 
 function loadIPS() {
@@ -134,7 +134,7 @@ function loadIPS() {
 }
 
 function loadConfigAttrs() {
-	local file=${LDP_HOME}/bin/config/config.json
+	local file=${EYCLUSTER_HOME}/bin/config/config.json
 	local services=$(cat ${file} | jq '.' | jq -r keys[])
 	for service in ${services[@]};do
 		local keys=$(cat ${file} | jq -r '.'${service} | jq -r keys[])
@@ -286,15 +286,15 @@ function loadExtendAttrs() {
 function loadScriptConfig() {
 	local clusterId=''
 	if [[ ${DEPLOY_FLAG} == "true" ]];then
-	  if [[ ! -f "${LDP_HOME}/bin/config/nodelist" ]];then
+	  if [[ ! -f "${EYCLUSTER_HOME}/bin/config/nodelist" ]];then
 		  log_error "File[nodelist] does not exist!"
       exit -1;
 		fi
 		clusterId=`openssl rand -hex 8 | md5sum | cut -c1-8`
-		echo $clusterId > ${LDP_HOME}/bin/config/cluster.id
+		echo $clusterId > ${EYCLUSTER_HOME}/bin/config/cluster.id
 		log_info "Prepare to deploy a new cluster:${clusterId}"
 	else
-		clusterId=`cat ${LDP_HOME}/bin/config/cluster.id`
+		clusterId=`cat ${EYCLUSTER_HOME}/bin/config/cluster.id`
 		echo "The current operating cluster is:"${clusterId}
 	fi
 	if [ ! -n "${clusterId}" ];then

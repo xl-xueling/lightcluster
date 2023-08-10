@@ -8,10 +8,10 @@
 function remoteCompileRoaring(){
 	checkCMake;
         local IPArray=($(getServiceIPS 'redis'))
-	local exec_dir=${LDP_HOME}/plugins
+	local exec_dir=${EYCLUSTER_HOME}/plugins
         for ip in "${IPArray[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/compile/compile_roaring.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+                        remoteExecute ${CUR_DIR}/compile/compile_roaring.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
                 done
 	checkRoaring;
 	log_info "Program progress,compile roaring complete!"
@@ -19,10 +19,10 @@ function remoteCompileRoaring(){
 
 function remoteCompileRedis(){
         local IPArray=($(getServiceIPS 'redis'))
-	local exec_dir=${LDP_HOME}/plugins
+	local exec_dir=${EYCLUSTER_HOME}/plugins
         for ip in "${IPArray[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/compile/compile_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+                        remoteExecute ${CUR_DIR}/compile/compile_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 		done
 	log_info "Program progress,compile redis complete!"
 }

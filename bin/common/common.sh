@@ -5,8 +5,8 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-LOG_FILE="${LDP_HOME}/bin/log/log.txt"
-mkdir -p ${LDP_HOME}/bin/log/
+LOG_FILE="${EYCLUSTER_HOME}/bin/log/log.txt"
+mkdir -p ${EYCLUSTER_HOME}/bin/log/
 #>${LOG_FILE}
 #exec &>>${LOG_FILE}
 

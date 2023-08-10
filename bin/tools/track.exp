@@ -3,7 +3,7 @@
 set user [lindex $argv 0]
 set ip [lindex $argv 1]
 set passwd [lindex $argv 2]
-set ldp_home [lindex $argv 3]
+set EYCLUSTER_HOME [lindex $argv 3]
 set daytime [exec date +%y%m%d%H%M%S]
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
@@ -17,7 +17,7 @@ expect {
         "${prompt}" {send "\r"}
 }
 expect "${prompt}"
-send "ps -ef > ${ldp_home}/bin/log/track_pid.info_${daytime}\r"
+send "ps -ef > ${EYCLUSTER_HOME}/bin/log/track_pid.info_${daytime}\r"
 expect "${prompt}"
 send "exit\r"
 expect eof

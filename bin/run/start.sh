@@ -9,20 +9,20 @@ function startZookeeper(){
         local IPArray=($(getServiceIPS 'zookeeper'))
         for ip in "${IPArray[@]}"
 		do
-			remoteExecute ${CUR_DIR}/run/start_zookeeper.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+			remoteExecute ${CUR_DIR}/run/start_zookeeper.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 		done
 	checkZookeeper;
 }
 
 function startHadoop(){
 	 local namenode=${ATTRS_MAP['ldp_hadoop_namenode_ip']}
-        remoteExecute ${CUR_DIR}/run/start_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${LDP_HOME}
+        remoteExecute ${CUR_DIR}/run/start_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 	checkHadoop;
 }
 
 function startHBase(){
 	local master=${ATTRS_MAP['ldp_hbase_master']}
-	remoteExecute ${CUR_DIR}/run/start_hbase.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${LDP_HOME}
+	remoteExecute ${CUR_DIR}/run/start_hbase.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 	checkHBase;
 }
 
@@ -30,14 +30,14 @@ function startKafka(){
 	local IPArray=($(getServiceIPS 'kafka'))
         for ip in "${IPArray[@]}"
                 do
-                         remoteExecute ${CUR_DIR}/run/start_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+                         remoteExecute ${CUR_DIR}/run/start_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
                 done
 	checkKafka;
 }
 
 function startSpark(){
 	local master=${ATTRS_MAP['ldp_spark_master']}
-        remoteExecute ${CUR_DIR}/run/start_spark.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${LDP_HOME}
+        remoteExecute ${CUR_DIR}/run/start_spark.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 	checkSpark;
 }
 
@@ -47,18 +47,18 @@ function startLightHouseICE(){
 		do
 			local ip=${IPArray[$i]}
 			if [ $i == '0' ];then
-				remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${LDP_DATA_DIR} 'register_master'
+				remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${LDP_DATA_DIR} 'register_master'
 			else
-				remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${LDP_DATA_DIR} 'register_slaver'
+				remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${LDP_DATA_DIR} 'register_slaver'
 			fi		
 		done
 	for ip in "${IPArray[@]}"
 		do
-			remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${LDP_DATA_DIR} 'start_node'
+			remoteExecute ${CUR_DIR}/run/start_ice.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${LDP_DATA_DIR} 'start_node'
 		done
 	local IPArray=($(getServiceIPS 'lighthouse_ice'))
 	local master=${IPArray[0]};
-	remoteExecute ${CUR_DIR}/run/start_lighthouse_ice.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${LDP_HOME}
+	remoteExecute ${CUR_DIR}/run/start_lighthouse_ice.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
 	checkLightHouseICE;
 }
 
@@ -70,7 +70,7 @@ function startRedis(){
                         for ((a=1;a<=${_REDIS_NUM_PIDS_PER_NODE};a++))
                                 do
                                         local port=$[7100+${a}]
-                                        remoteExecute ${CUR_DIR}/run/start_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME} ${port}
+                                        remoteExecute ${CUR_DIR}/run/start_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${port}
                                 done
                 done
 	checkRedis;
@@ -85,8 +85,8 @@ function startLightHouseWeb(){
   local IPArray=($(getServiceIPS 'lighthouse_web'))
 	for ip in "${IPArray[@]}"
 		do
-			local jar_path=$(find ${LDP_HOME}/lib -type f -name 'lighthouse-web-*.jar'|head -n 1)
-			local cmd="nohup java -Xms${web_xms_memory} -Xmx${web_xmx_memory} -XX:+UseG1GC -Dloader.path=${LDP_HOME}/lib,${LDP_HOME}/light-webapps -Dlogging.config=file:${LDP_HOME}/conf/log4j2-web.xml -Dspring.config.location=${LDP_HOME}/conf/lighthouse-web.yml -jar ${jar_path} >/dev/null 2>&1 &"
+			local jar_path=$(find ${EYCLUSTER_HOME}/lib -type f -name 'lighthouse-web-*.jar'|head -n 1)
+			local cmd="nohup java -Xms${web_xms_memory} -Xmx${web_xmx_memory} -XX:+UseG1GC -Dloader.path=${EYCLUSTER_HOME}/lib,${EYCLUSTER_HOME}/light-webapps -Dlogging.config=file:${EYCLUSTER_HOME}/conf/log4j2-web.xml -Dspring.config.location=${EYCLUSTER_HOME}/conf/lighthouse-web.yml -jar ${jar_path} >/dev/null 2>&1 &"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} "$cmd"
 		done
 	checkLightHouseWeb;
@@ -96,7 +96,7 @@ function startMysql(){
 	 local IPArray=($(getServiceIPS 'mysql'))
          for ip in "${IPArray[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/run/start_mysql.exp  ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+                        remoteExecute ${CUR_DIR}/run/start_mysql.exp  ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
                 done
 	checkMysql;
 }
@@ -110,7 +110,7 @@ function startLightHouseTasks(){
 	local tasks_direct_memory=($(getVal 'ldp_lighthouse_tasks_direct_memory'))
 	local tasks_executor_cores=($(getVal 'ldp_lighthouse_tasks_executor_cores'))
 	local tasks_num_executors=($(getVal 'ldp_lighthouse_tasks_num_executors')) 
-	local cmd="spark-submit --class com.dtstep.lighthouse.tasks.executive.LightHouseEntrance --files ${LDP_HOME}/conf/log4j2-tasks.xml --conf \"spark.driver.extraJavaOptions=-Dlog4j.configurationFile=${LDP_HOME}/conf/log4j2-tasks.xml\"  --conf spark.memory.fraction=0.2 --conf spark.memory.storageFraction=0.1 --conf \"spark.executor.extraJavaOptions=-Xloggc:/tmp/gc-lighthouse-%t.log -verbose:gc -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:G1HeapRegionSize=16M -XX:MaxDirectMemorySize=${tasks_direct_memory} -XX:ErrorFile=/tmp/hs_err_pid<pid>.log -Dlog4j.configurationFile=${LDP_HOME}/conf/log4j2-tasks.xml\" --master yarn --conf spark.driver.memory=${tasks_driver_memory} --executor-memory ${tasks_executor_memory} --executor-cores ${tasks_executor_cores} --num-executors ${tasks_num_executors} --jars $(echo ${LDP_HOME}/lib/*.jar | tr ' ' ',') ${LDP_HOME}/lib/lighthouse-tasks-*.jar ${LDP_HOME}/conf/ldp-site.xml >/dev/null 2>&1 &"
+	local cmd="spark-submit --class com.dtstep.lighthouse.tasks.executive.LightHouseEntrance --files ${EYCLUSTER_HOME}/conf/log4j2-tasks.xml --conf \"spark.driver.extraJavaOptions=-Dlog4j.configurationFile=${EYCLUSTER_HOME}/conf/log4j2-tasks.xml\"  --conf spark.memory.fraction=0.2 --conf spark.memory.storageFraction=0.1 --conf \"spark.executor.extraJavaOptions=-Xloggc:/tmp/gc-lighthouse-%t.log -verbose:gc -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:G1HeapRegionSize=16M -XX:MaxDirectMemorySize=${tasks_direct_memory} -XX:ErrorFile=/tmp/hs_err_pid<pid>.log -Dlog4j.configurationFile=${EYCLUSTER_HOME}/conf/log4j2-tasks.xml\" --master yarn --conf spark.driver.memory=${tasks_driver_memory} --executor-memory ${tasks_executor_memory} --executor-cores ${tasks_executor_cores} --num-executors ${tasks_num_executors} --jars $(echo ${EYCLUSTER_HOME}/lib/*.jar | tr ' ' ',') ${EYCLUSTER_HOME}/lib/lighthouse-tasks-*.jar ${EYCLUSTER_HOME}/conf/ldp-site.xml >/dev/null 2>&1 &"
 	 local master=($(getVal 'ldp_spark_master'))
 	if [ $CUR_USER == $DEPLOY_USER ];then
 		 remoteExecute ${CUR_DIR}/common/exec.exp ${DEPLOY_USER} ${master} "-" "${cmd}"
@@ -124,7 +124,7 @@ function startLightHouseTasks(){
 function track() {
     for ip in "${NODES[@]}"
       do
-          remoteExecute ${CUR_DIR}/tools/track.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LDP_HOME}
+          remoteExecute ${CUR_DIR}/tools/track.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
       done
 }
 
