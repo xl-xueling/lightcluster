@@ -66,18 +66,17 @@ function loadBasicAttrs() {
 		IFS=,
 		echo "${NODES[*]}"
 	)
-	ATTRS_MAP["ldp_java_home"]=${EYCLUSTER_HOME}/dependency/jdk
-	ATTRS_MAP["ldp_scala_home"]=${EYCLUSTER_HOME}/dependency/scala
-	ATTRS_MAP["ldp_hadoop_home"]=${EYCLUSTER_HOME}/dependency/hadoop
-	ATTRS_MAP["ldp_hbase_home"]=${EYCLUSTER_HOME}/dependency/hbase
-	ATTRS_MAP["ldp_kafka_home"]=${EYCLUSTER_HOME}/dependency/kafka
-	ATTRS_MAP["ldp_zookeeper_home"]=${EYCLUSTER_HOME}/dependency/zookeeper
-	ATTRS_MAP["ldp_spark_home"]=${EYCLUSTER_HOME}/dependency/spark
-	ATTRS_MAP["ldp_mysql_home"]=${EYCLUSTER_HOME}/dependency/mysql
-	ATTRS_MAP["ldp_redis_home"]=${EYCLUSTER_HOME}/dependency/redis
-	ATTRS_MAP["ldp_plugins_dir"]=${EYCLUSTER_HOME}/plugins
+	ATTRS_MAP["ldp_java_home"]=${DEPLOY_HOME}/jdk
+	ATTRS_MAP["ldp_scala_home"]=${DEPLOY_HOME}/scala
+	ATTRS_MAP["ldp_hadoop_home"]=${DEPLOY_HOME}/hadoop
+	ATTRS_MAP["ldp_hbase_home"]=${DEPLOY_HOME}/hbase
+	ATTRS_MAP["ldp_kafka_home"]=${DEPLOY_HOME}/kafka
+	ATTRS_MAP["ldp_zookeeper_home"]=${DEPLOY_HOME}/zookeeper
+	ATTRS_MAP["ldp_spark_home"]=${DEPLOY_HOME}/spark
+	ATTRS_MAP["ldp_mysql_home"]=${DEPLOY_HOME}/mysql
+	ATTRS_MAP["ldp_redis_home"]=${DEPLOY_HOME}/redis
+	ATTRS_MAP["ldp_plugins_dir"]=${DEPLOY_HOME}/plugins
 	ATTRS_MAP["ldp_data_dir"]=${LDP_DATA_DIR}
-	ATTRS_MAP["ldp_lighthouse_home"]=${EYCLUSTER_HOME}
 }
 
 function loadIPS() {

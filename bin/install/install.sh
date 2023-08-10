@@ -20,6 +20,7 @@ function authorization(){
 	for ip in "${NODES[@]}"
 		do
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${EYCLUSTER_HOME}"
+			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${DEPLOY_HOME}"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} /home/${user}/.ssh"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${LDP_DATA_DIR}"
 		done
@@ -39,7 +40,6 @@ function installICE() {
 install(){
 	baseInstall;
 	dependencyInstall;
-	pluginsInstall;
 	reloadClusterConfig;
 	installICE;
 	authorization;

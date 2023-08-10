@@ -121,16 +121,5 @@ function dependencyInstall() {
   done
 }
 
-function pluginsInstall() {
-    source ~/.bashrc;
-    cd ${EYCLUSTER_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
-    cd ${EYCLUSTER_HOME}/plugins/redis-roaring && ./configure.sh
-    for ip in "${NODES[@]:1}"
-                do
-			remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${DEPLOY_HOME}/plugins ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}
-		done
-
-}
-
 
 
