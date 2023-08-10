@@ -71,7 +71,7 @@ expect {
 expect "${prompt}"
 send "${mysql_home}/bin/mysql -u root -h localhost -p'root'\r"
 expect "*>"
-send "source ${EYCLUSTER_HOME}/conf/ldp_db.sql;\r"
+send "source ${LIGHT_HOME}/conf/ldp_db.sql;\r"
 send "exit\r"
 expect "${prompt}"
 send "exit\r"

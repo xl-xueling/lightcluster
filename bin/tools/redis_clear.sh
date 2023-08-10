@@ -6,7 +6,7 @@
 #-----------------------------------------
 
 CUR_USER=${USER}
-CUR_DIR=${EYCLUSTER_HOME}/bin
+CUR_DIR=${LIGHT_HOME}/bin
 source "${CUR_DIR}/common/lib.sh"
 source "${CUR_DIR}/prepare/prepare.sh"
 source "${CUR_DIR}/install/install.sh"

@@ -3,7 +3,7 @@
 set user [lindex $argv 0]
 set ip [lindex $argv 1]
 set passwd [lindex $argv 2]
-set EYCLUSTER_HOME [lindex $argv 3]
+set LIGHT_HOME [lindex $argv 3]
 set prompt "*${user}@*\\\$"
 if { $user == "root" } {
         set prompt "*${user}@*#"
@@ -16,7 +16,7 @@ expect {
         "${prompt}" {send "\r"}
 }
 expect "${prompt}"
-send "icegridadmin --Ice.Config=${EYCLUSTER_HOME}/conf/ice_node.cfg \r"
+send "icegridadmin --Ice.Config=${LIGHT_HOME}/conf/ice_node.cfg \r"
 expect "user"
 send "s\r"
 expect "password"
@@ -24,7 +24,7 @@ send "s\r"
 #expect ">>>"
 #send "application remove LightHouseServerApp \r"
 expect ">>>"
-send "application add ${EYCLUSTER_HOME}/conf/ice_app.xml \r"
+send "application add ${LIGHT_HOME}/conf/ice_app.xml \r"
 expect ">>>"
 send "server start lighthouse-icebox11 \r"
 expect ">>>"

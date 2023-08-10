@@ -5,7 +5,7 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-reload_dir="${EYCLUSTER_HOME}/temp/reload"
+reload_dir="${LIGHT_HOME}/temp/reload"
 
 function syncDependencyConf() {
         local service=${1}

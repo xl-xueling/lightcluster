@@ -12,7 +12,7 @@ NODES=()
 SERVICES=()
 
 function loadNodesPWD() {
-  local FILE=${EYCLUSTER_HOME}/bin/config/nodelist
+  local FILE=${LIGHT_HOME}/bin/config/nodelist
   if [ -f "$FILE" ]; then
     while read row; do
       if [ -n "$row" ]; then
@@ -25,7 +25,7 @@ function loadNodesPWD() {
 }
 
 function loadNodes() {
-  local FILE=${EYCLUSTER_HOME}/bin/config/nodelist.new
+  local FILE=${LIGHT_HOME}/bin/config/nodelist.new
   if [ -f "$FILE" ]; then
     while read row; do
           if [ -n "$row" ]; then
@@ -48,7 +48,7 @@ function loadDowns() {
 			DOWNS_MAP["${array[0]}"]=${array[1]}
 			SERVICES+=(${array[0]})
 		fi
-	done <${EYCLUSTER_HOME}/bin/config/sourcelist
+	done <${LIGHT_HOME}/bin/config/sourcelist
 }
 
 declare -A ATTRS_MAP
@@ -133,7 +133,7 @@ function loadIPS() {
 }
 
 function loadConfigAttrs() {
-	local file=${EYCLUSTER_HOME}/bin/config/config.json
+	local file=${LIGHT_HOME}/bin/config/config.json
 	local services=$(cat ${file} | jq '.' | jq -r keys[])
 	for service in ${services[@]};do
 		local keys=$(cat ${file} | jq -r '.'${service} | jq -r keys[])
@@ -296,15 +296,15 @@ function loadExtendAttrs() {
 function loadScriptConfig() {
 	local clusterId=''
 	if [[ ${DEPLOY_FLAG} == "true" ]];then
-	  if [[ ! -f "${EYCLUSTER_HOME}/bin/config/nodelist" ]];then
+	  if [[ ! -f "${LIGHT_HOME}/bin/config/nodelist" ]];then
 		  log_error "File[nodelist] does not exist!"
       exit -1;
 		fi
 		clusterId=`openssl rand -hex 8 | md5sum | cut -c1-8`
-		echo $clusterId > ${EYCLUSTER_HOME}/bin/config/cluster.id
+		echo $clusterId > ${LIGHT_HOME}/bin/config/cluster.id
 		log_info "Prepare to deploy a new cluster:${clusterId}"
 	else
-		clusterId=`cat ${EYCLUSTER_HOME}/bin/config/cluster.id`
+		clusterId=`cat ${LIGHT_HOME}/bin/config/cluster.id`
 		echo "The current operating cluster is:"${clusterId}
 	fi
 	if [ ! -n "${clusterId}" ];then

@@ -71,7 +71,7 @@ function stopRedis(){
 			for ((a=1;a<=${_REDIS_NUM_PIDS_PER_NODE};a++))
                                 do
                                         local port=$[7100+${a}]
-                                        #remoteExecute ${CUR_DIR}/run/stop_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME} ${port} ${clusterPwd}
+                                        #remoteExecute ${CUR_DIR}/run/stop_redis.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LIGHT_HOME} ${port} ${clusterPwd}
                                 done
 		done
 	killService 'redis';

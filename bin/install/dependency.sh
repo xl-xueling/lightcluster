@@ -5,7 +5,7 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-source_dir="${EYCLUSTER_HOME}/temp/source"
+source_dir="${LIGHT_HOME}/temp/source"
 
 function setComponentsEnv(){
         local service=${1}
@@ -50,9 +50,9 @@ function syncComponents() {
 
 
 function downloads() {
-	local temp_dir=${EYCLUSTER_HOME}/temp
+	local temp_dir=${LIGHT_HOME}/temp
 	for service in "${SERVICES[@]}"; do
-			local archive_dir=${EYCLUSTER_HOME}/package/${service}
+			local archive_dir=${LIGHT_HOME}/package/${service}
 			local source_dir=${temp_dir}/source/${service}
 			mkdir -p ${archive_dir}  ${source_dir}
 			local archives=$(find ${archive_dir} -maxdepth 1 -mindepth 1 -type f | grep ${service})
@@ -139,7 +139,7 @@ function pluginsInstall() {
     if [ "$service" == "flink" ];then
          		local IPArray=($(getServiceIPS ${service}))
 		        for ip in ${IPArray[@]}; do
-			        remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${EYCLUSTER_HOME}/plugins/flink/*.jar ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/flink/lib/
+			        remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LIGHT_HOME}/plugins/flink/*.jar ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/flink/lib/
 		        done
     fi
   done

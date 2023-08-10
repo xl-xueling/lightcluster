@@ -286,7 +286,7 @@ function checkRoaring(){
         local index=0;
         for ip in "${IPArray[@]}"
                 do
-			existByFile ${ip} "${EYCLUSTER_HOME}/plugins/redis-roaring/build/libredis-roaring.so"
+			existByFile ${ip} "${LIGHT_HOME}/plugins/redis-roaring/build/libredis-roaring.so"
 			if [ $? != '0' ];then
                                 log_error "[${ip}]plugin(roaring) does not exist,compile roaring plugin failed!";
                                 exit -1;

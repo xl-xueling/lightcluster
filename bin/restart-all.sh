@@ -6,10 +6,10 @@
 #-----------------------------------------
 
 CUR_DIR=$(cd "$(dirname "$0")";pwd)
-EYCLUSTER_HOME=$(dirname "$CUR_DIR")
+LIGHT_HOME=$(dirname "$CUR_DIR")
 DEPLOY_HOME=$(dirname $(dirname "$CUR_DIR"))
 LDP_DATA_DIR=${DEPLOY_HOME}/data
-ROOT_HOME=$(dirname "$EYCLUSTER_HOME")
+ROOT_HOME=$(dirname "$LIGHT_HOME")
 CUR_USER=${USER}
 LOCKFILE=/tmp/lighthouse_run.lock
 source "${CUR_DIR}/common/lib.sh"

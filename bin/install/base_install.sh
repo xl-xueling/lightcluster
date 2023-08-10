@@ -5,9 +5,9 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-EYCLUSTER_HOME=${1}
+LIGHT_HOME=${1}
 
-source ${EYCLUSTER_HOME}/bin/common/common.sh
+source ${LIGHT_HOME}/bin/common/common.sh
 
 baseCentOSInstall(){
         sudo rm -f /var/run/yum.pid

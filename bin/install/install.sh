@@ -10,7 +10,7 @@ source "${CUR_DIR}/install/dependency.sh"
 function baseInstall(){
 	for ip in "${NODES[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/install/base_install.sh ${EYCLUSTER_HOME}"
+                        remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/install/base_install.sh ${LIGHT_HOME}"
                 done
 	log_info "Program progress,base install complete!"
 }
@@ -19,7 +19,7 @@ function authorization(){
 	local user=${DEPLOY_USER}
 	for ip in "${NODES[@]}"
 		do
-			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${EYCLUSTER_HOME}"
+			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${LIGHT_HOME}"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${DEPLOY_HOME}"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} /home/${user}/.ssh"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "chown -R ${user}:${user} ${LDP_DATA_DIR}"
@@ -32,7 +32,7 @@ function installICE() {
     local IPArray=($(getServiceIPS 'lighthouse_ice'))
     for ip in "${IPArray[@]}"
       do
-        remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/install/install_ice.sh ${EYCLUSTER_HOME}"
+        remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/install/install_ice.sh ${LIGHT_HOME}"
       done
     checkICECommand;
 }

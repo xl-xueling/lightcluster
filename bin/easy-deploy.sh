@@ -6,7 +6,7 @@
 #-----------------------------------------
 
 CUR_DIR=$(cd "$(dirname "$0")";pwd)
-EYCLUSTER_HOME=$(dirname "$CUR_DIR")
+LIGHT_HOME=$(dirname "$CUR_DIR")
 DEPLOY_HOME=$(dirname $(dirname "$CUR_DIR"))
 LDP_DATA_DIR=${DEPLOY_HOME}/data
 ROOT_HOME=$(dirname "$DEPLOY_HOME")
@@ -48,7 +48,7 @@ main(){
 		exit -1;
 	fi
 	local args=$@
-	if [ -d "${EYCLUSTER_HOME}/dependency" ];then
+	if [ -d "${LIGHT_HOME}/dependency" ];then
 		echo "=Important=:This operation will delete all data of the cluster,Please execute it carefully !!!"
 		if [[ ! "${args[@]}" =~ "--force" ]];then
 			echo "Program has been deployed, please delete it and execute again, or execute \"deploy.sh --force\" to enforce it!"

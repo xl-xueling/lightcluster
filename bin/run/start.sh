@@ -91,8 +91,8 @@ function startLightHouseWeb(){
   local IPArray=($(getServiceIPS 'lighthouse_web'))
 	for ip in "${IPArray[@]}"
 		do
-			local jar_path=$(find ${EYCLUSTER_HOME}/lib -type f -name 'lighthouse-web-*.jar'|head -n 1)
-			local cmd="nohup java -Xms${web_xms_memory} -Xmx${web_xmx_memory} -XX:+UseG1GC -Dloader.path=${EYCLUSTER_HOME}/lib,${EYCLUSTER_HOME}/light-webapps -Dlogging.config=file:${EYCLUSTER_HOME}/conf/log4j2-web.xml -Dspring.config.location=${EYCLUSTER_HOME}/conf/lighthouse-web.yml -jar ${jar_path} >/dev/null 2>&1 &"
+			local jar_path=$(find ${LIGHT_HOME}/lib -type f -name 'lighthouse-web-*.jar'|head -n 1)
+			local cmd="nohup java -Xms${web_xms_memory} -Xmx${web_xmx_memory} -XX:+UseG1GC -Dloader.path=${LIGHT_HOME}/lib,${LIGHT_HOME}/light-webapps -Dlogging.config=file:${LIGHT_HOME}/conf/log4j2-web.xml -Dspring.config.location=${LIGHT_HOME}/conf/lighthouse-web.yml -jar ${jar_path} >/dev/null 2>&1 &"
 			remoteExecute ${CUR_DIR}/common/exec.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} "$cmd"
 		done
 	checkLightHouseWeb;
@@ -116,7 +116,7 @@ function startLightHouseTasks(){
 	local tasks_direct_memory=($(getVal 'ldp_lighthouse_tasks_direct_memory'))
 	local tasks_executor_cores=($(getVal 'ldp_lighthouse_tasks_executor_cores'))
 	local tasks_num_executors=($(getVal 'ldp_lighthouse_tasks_num_executors')) 
-	local cmd="spark-submit --class com.dtstep.lighthouse.tasks.executive.LightHouseEntrance --files ${DEPLOY_HOME}/conf/log4j2-tasks.xml --conf \"spark.driver.extraJavaOptions=-Dlog4j.configurationFile=${EYCLUSTER_HOME}/conf/log4j2-tasks.xml\"  --conf spark.memory.fraction=0.2 --conf spark.memory.storageFraction=0.1 --conf \"spark.executor.extraJavaOptions=-Xloggc:/tmp/gc-lighthouse-%t.log -verbose:gc -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:G1HeapRegionSize=16M -XX:MaxDirectMemorySize=${tasks_direct_memory} -XX:ErrorFile=/tmp/hs_err_pid<pid>.log -Dlog4j.configurationFile=${EYCLUSTER_HOME}/conf/log4j2-tasks.xml\" --master yarn --conf spark.driver.memory=${tasks_driver_memory} --executor-memory ${tasks_executor_memory} --executor-cores ${tasks_executor_cores} --num-executors ${tasks_num_executors} --jars $(echo ${EYCLUSTER_HOME}/lib/*.jar | tr ' ' ',') ${EYCLUSTER_HOME}/lib/lighthouse-tasks-*.jar ${EYCLUSTER_HOME}/conf/ldp-site.xml >/dev/null 2>&1 &"
+	local cmd="spark-submit --class com.dtstep.lighthouse.tasks.executive.LightHouseEntrance --files ${DEPLOY_HOME}/conf/log4j2-tasks.xml --conf \"spark.driver.extraJavaOptions=-Dlog4j.configurationFile=${LIGHT_HOME}/conf/log4j2-tasks.xml\"  --conf spark.memory.fraction=0.2 --conf spark.memory.storageFraction=0.1 --conf \"spark.executor.extraJavaOptions=-Xloggc:/tmp/gc-lighthouse-%t.log -verbose:gc -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:G1HeapRegionSize=16M -XX:MaxDirectMemorySize=${tasks_direct_memory} -XX:ErrorFile=/tmp/hs_err_pid<pid>.log -Dlog4j.configurationFile=${LIGHT_HOME}/conf/log4j2-tasks.xml\" --master yarn --conf spark.driver.memory=${tasks_driver_memory} --executor-memory ${tasks_executor_memory} --executor-cores ${tasks_executor_cores} --num-executors ${tasks_num_executors} --jars $(echo ${LIGHT_HOME}/lib/*.jar | tr ' ' ',') ${LIGHT_HOME}/lib/lighthouse-tasks-*.jar ${LIGHT_HOME}/conf/ldp-site.xml >/dev/null 2>&1 &"
 	 local master=($(getVal 'ldp_spark_master'))
 	if [ $CUR_USER == $DEPLOY_USER ];then
 		 remoteExecute ${CUR_DIR}/common/exec.exp ${DEPLOY_USER} ${master} "-" "${cmd}"
@@ -130,7 +130,7 @@ function startLightHouseTasks(){
 function track() {
     for ip in "${NODES[@]}"
       do
-          remoteExecute ${CUR_DIR}/tools/track.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+          remoteExecute ${CUR_DIR}/tools/track.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${LIGHT_HOME}
       done
 }
 

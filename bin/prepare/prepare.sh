@@ -5,7 +5,7 @@
 # Email:better_xueling@126.com
 #-----------------------------------------
 
-source "${EYCLUSTER_HOME}/bin/prepare/basic.sh"
+source "${LIGHT_HOME}/bin/prepare/basic.sh"
 
 
 pre(){
@@ -42,11 +42,11 @@ pre(){
 }
 
 syncPackage(){
-	find ${EYCLUSTER_HOME}/bin -name "*.sh"|xargs chmod +x
+	find ${LIGHT_HOME}/bin -name "*.sh"|xargs chmod +x
 	for ip in "${NODES[@]:1}"
                 do
-      remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "nodelist" ${EYCLUSTER_HOME}/bin ${ip} ${NODES_MAP[$ip]} ${EYCLUSTER_HOME}
-      remoteExecute ${CUR_DIR}/check/check_file_exist.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} ${EYCLUSTER_HOME}/bin
+      remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "nodelist" ${LIGHT_HOME}/bin ${ip} ${NODES_MAP[$ip]} ${LIGHT_HOME}
+      remoteExecute ${CUR_DIR}/check/check_file_exist.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} ${LIGHT_HOME}/bin
 		done
 		log_info "Program progress,sync package complete!"
 }
@@ -54,7 +54,7 @@ syncPackage(){
 baseInit(){
 	for ip in "${NODES[@]}"
 		do
-			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/prepare/init_path.sh ${DEPLOY_USER} ${EYCLUSTER_HOME} ${LDP_DATA_DIR}"
+			remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[$ip]} "${CUR_DIR}/prepare/init_path.sh ${DEPLOY_USER} ${LIGHT_HOME} ${LDP_DATA_DIR}"
 		done
 	log_info "Program progress,init path complete!"
 	for ip in "${NODES[@]}"
@@ -102,7 +102,7 @@ hostsInit(){
                 done
         for ip in "${NODES[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/prepare/init_hosts.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} ${EYCLUSTER_HOME}
+                        remoteExecute ${CUR_DIR}/prepare/init_hosts.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} ${LIGHT_HOME}
                 done
         log_info "Program progress,init hosts complete!"
 }
