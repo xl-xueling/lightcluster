@@ -256,6 +256,9 @@ function checkSpark(){
 	log_info "spark startup status verification completed!"
 }
 
+function checkFlink() {
+    echo "check flink...."
+}
 
 function checkMysql(){
 	log_info "start to verify mysql startup status."

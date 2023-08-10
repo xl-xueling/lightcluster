@@ -55,6 +55,14 @@ function stopSpark(){
 	log_info "Program progress,stop spark complete!"
 }
 
+
+function stopFlink(){
+	local master=${ATTRS_MAP['ldp_flink_master']}
+        remoteExecute ${CUR_DIR}/run/stop_flink.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+   killService 'flink';
+	log_info "Program progress,stop spark complete!"
+}
+
 function stopRedis(){
 	local clusterPwd=($(getVal 'ldp_redis_cluster_passwd'))
         local IPArray=($(getServiceIPS 'redis'))

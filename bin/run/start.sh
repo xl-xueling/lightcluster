@@ -41,6 +41,12 @@ function startSpark(){
 	checkSpark;
 }
 
+function startFlink(){
+	local master=${ATTRS_MAP['ldp_flink_master']}
+  remoteExecute ${CUR_DIR}/run/start_flink.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
+	checkFlink;
+}
+
 function startLightHouseICE(){
 	local IPArray=($(getServiceIPS 'lighthouse_ice'))
 	for i in {0..1}
@@ -162,6 +168,9 @@ start_all(){
 	sleep 10;
 	if [[ "${SERVICES[@]}" =~ "spark" ]];then
 		startSpark;
+	fi
+	if [[ "${SERVICES[@]}" =~ "flink" ]];then
+		startFlink;
 	fi
 	log_info "Waiting to start LightHouse ..."
 	sleep 20;
