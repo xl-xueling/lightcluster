@@ -35,8 +35,8 @@ easy_deploy(){
   	deploy;
 	source ~/.bashrc;
 	checkInstall;
-	#stop_all;
-	#start_all;
+	stop_all;
+	start_all;
 	rm -f ${LOCKFILE}
 	echo "XL-LightHouse installed successfully!"
 }
