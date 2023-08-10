@@ -61,7 +61,8 @@ main(){
 	fi
 	`ps -ef|grep "easy-deploy.sh"|grep -v grep |grep -v $$|awk '{print $2}' |xargs --no-run-if-empty kill -9`
   `ps -ef|grep "lighthouse"|grep -v grep |grep -v $$|awk '{print $2}' |xargs --no-run-if-empty kill -9`
-	easy_deploy > ${LOG_FILE} 2>&1 &
+	#easy_deploy > ${LOG_FILE} 2>&1 &
+	easy_deploy;
 	exit 0;	
 }
 
