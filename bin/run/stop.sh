@@ -17,7 +17,7 @@ function stopZookeeper(){
 	local IPArray=($(getServiceIPS 'zookeeper'))
         for ip in "${IPArray[@]}"
                 do
-                        expect ${CUR_DIR}/run/stop_zookeeper.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+                        expect ${CUR_DIR}/run/stop_zookeeper.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
 		            done
 	killService 'zookeeper';
 	log_info "Program progress,stop zookeeper complete!"
@@ -25,14 +25,14 @@ function stopZookeeper(){
 
 function stopHadoop(){
 	local namenode=${ATTRS_MAP['ldp_hadoop_namenode_ip']}
-	remoteExecute ${CUR_DIR}/run/stop_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+	remoteExecute ${CUR_DIR}/run/stop_hadoop.exp ${DEPLOY_USER} ${namenode} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
   killService 'hadoop';
 	log_info "Program progress,stop hadoop complete!"
 }
 
 function stopHBase(){
 	local master=${ATTRS_MAP['ldp_hbase_master']}
-        remoteExecute ${CUR_DIR}/run/stop_hbase.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+        remoteExecute ${CUR_DIR}/run/stop_hbase.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
 	killService 'hbase';
 	log_info "Program progress,stop hbase complete!"
 }
@@ -41,7 +41,7 @@ function stopKafka(){
 	local IPArray=($(getServiceIPS 'kafka'))
         for ip in "${IPArray[@]}"
                 do
-			remoteExecute ${CUR_DIR}/run/stop_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+			remoteExecute ${CUR_DIR}/run/stop_kafka.exp ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
 		done
 	#killService 'kafka';
 	log_info "Program progress,stop kafka complete!"
@@ -50,7 +50,7 @@ function stopKafka(){
 
 function stopSpark(){
 	local master=${ATTRS_MAP['ldp_spark_master']}
-        remoteExecute ${CUR_DIR}/run/stop_spark.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+        remoteExecute ${CUR_DIR}/run/stop_spark.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
    killService 'spark';
 	log_info "Program progress,stop spark complete!"
 }
@@ -58,7 +58,7 @@ function stopSpark(){
 
 function stopFlink(){
 	local master=${ATTRS_MAP['ldp_flink_master']}
-        remoteExecute ${CUR_DIR}/run/stop_flink.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+        remoteExecute ${CUR_DIR}/run/stop_flink.exp ${DEPLOY_USER} ${master} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
    killService 'flink';
 	log_info "Program progress,stop spark complete!"
 }
@@ -82,7 +82,7 @@ function stopMysql(){
          local IPArray=($(getServiceIPS 'mysql'))
          for ip in "${IPArray[@]}"
                 do
-                        remoteExecute ${CUR_DIR}/run/stop_mysql.exp  ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${EYCLUSTER_HOME}
+                        remoteExecute ${CUR_DIR}/run/stop_mysql.exp  ${DEPLOY_USER} ${ip} ${DEPLOY_PASSWD} ${DEPLOY_HOME}
                 done
 	killService 'mysql';
 	log_info "Program progress,stop mysql complete!"
@@ -110,6 +110,9 @@ stop_all(){
 	if [[ "${SERVICES[@]}" =~ "redis" ]];then
                 stopRedis;
         fi
+        if [[ "${SERVICES[@]}" =~ "flink" ]];then
+                stopFlink;
+        fi
         if [[ "${SERVICES[@]}" =~ "hbase" ]];then
                 stopHBase;
         fi
@@ -125,7 +128,7 @@ stop_all(){
 	if [[ "${SERVICES[@]}" =~ "zookeeper" ]];then
                 stopZookeeper;
         fi
-	stopLightHouseWeb;
-  stopLightHouseICE;
-  stopLightHouseTasks;
+	#stopLightHouseWeb;
+  #stopLightHouseICE;
+  #stopLightHouseTasks;
 }
