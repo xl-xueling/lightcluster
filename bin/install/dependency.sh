@@ -25,8 +25,12 @@ function setComponentsEnv(){
         remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "sed -i '/${homename}/d' /root/.bashrc"
         remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "echo export ${homename}=${dist_dir}/${service} >> /root/.bashrc"
         if [ "$service" == "hadoop" ];then
+          remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "sed -i '/HADOOP_CONF_DIR/d' /root/.bashrc"
+          remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "sed -i '/HADOOP_CLASSPATH/d' /root/.bashrc"
           remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "echo export HADOOP_CONF_DIR='$'HADOOP_HOME/etc/hadoop >> /home/${DEPLOY_USER}/.bashrc"
           remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "echo export HADOOP_CLASSPATH=`hadoop classpath` >> /home/${DEPLOY_USER}/.bashrc"
+          remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "sed -i '/HADOOP_CONF_DIR/d' /home/${DEPLOY_USER}/.bashrc"
+          remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "sed -i '/HADOOP_CLASSPATH/d' /home/${DEPLOY_USER}/.bashrc"
           remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "echo export HADOOP_CONF_DIR='$'HADOOP_HOME/etc/hadoop >> /root/.bashrc"
           remoteExecute ${CUR_DIR}/common/exec.exp ${CUR_USER} ${ip} ${NODES_MAP[${ip}]} "echo export HADOOP_CLASSPATH=`hadoop classpath` >> /root/.bashrc"
         fi
