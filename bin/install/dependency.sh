@@ -130,19 +130,20 @@ function dependencyInstall() {
 
 
 function pluginsInstall() {
-    source ~/.bashrc;
-#    cd ${LDP_HOME}/plugins/ && tar -zxvf redis-roaring.tar.gz;
-#    cd ${LDP_HOME}/plugins/redis-roaring && ./configure.sh
-#    for ip in "${NODES[@]:1}"
-#                do
-#			remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LDP_HOME}/plugins ${ip} ${NODES_MAP[$ip]} ${LDP_HOME}
-#		done
-  for service in "flink" "mysql" "hadoop";do
+  source ~/.bashrc;
+  for service in "redis" "flink" "mysql" "hadoop";do
     if [ "$service" == "flink" ];then
-         		local IPArray=($(getServiceIPS ${service}))
-		        for ip in ${IPArray[@]}; do
-			        remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LIGHT_HOME}/plugins/flink/*.jar ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/flink/lib/
-		        done
+        local IPArray=($(getServiceIPS ${service}))
+        for ip in ${IPArray[@]}; do
+          remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LIGHT_HOME}/plugins/flink/*.jar ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/flink/lib/
+        done
+    elif [ "$service" == "redis" ];then
+        cd ${LIGHT_HOME}/plugins/redis/ && tar -zxvf redis-roaring.tar.gz;
+        cd ${LIGHT_HOME}/plugins/redis/redis-roaring && ./configure.sh
+        local IPArray=($(getServiceIPS ${service}))
+        for ip in ${IPArray[@]}; do
+              remoteExecute ${CUR_DIR}/common/exclude_sync.exp ${CUR_USER} "" ${LIGHT_HOME}/plugins/redis/redis-roaring/build/libredis-roaring.so ${ip} ${NODES_MAP[$ip]} ${DEPLOY_HOME}/redis/build/
+        done
     fi
   done
 }
